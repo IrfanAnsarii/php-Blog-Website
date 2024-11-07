@@ -1,7 +1,6 @@
 <?php 
     include "includes/header.php";
-    require "config/config.php";
-    $base_url = 'http://localhost/blog';
+
 
 ?>
 
@@ -16,7 +15,7 @@
 
                     <!-- Post preview-->
                     <div class="post-preview">
-                        <a href="<?php echo $base_url; ?>/posts/post.php?post_id=<?php echo $row->id; ?>">
+                        <a href="<?php echo base_url; ?>/posts/post.php?post_id=<?php echo $row->id; ?>">
                             <h2 class="post-title"><?php echo $row->title; ?></h2>
                             <h3 class="post-subtitle"><?php echo $row->subtitle; ?></h3>
                         </a>

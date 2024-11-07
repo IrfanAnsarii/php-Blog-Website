@@ -1,5 +1,5 @@
 <?php 
-
+const base_url = 'http://localhost/blog';
 
 try{
     //host

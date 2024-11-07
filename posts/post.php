@@ -1,5 +1,5 @@
 <?php require "../includes/navbar.php"?>
-<?php require "../config/config.php"?>
+<?php require_once "../config/config.php"?>
 
 
 <?php if(isset($_GET['post_id'])){
@@ -25,7 +25,9 @@
                             <span class="meta">
                                 Posted by
                                 <a href="#!"> <?php echo $post->user_name; ?> </a>
-                                <?php echo date ('M', strtotime($post->user_name)). ',' . date('d', strtotime($post->user_name)). ' ' . date('Y',strtotime($post->user_name)) ; ?>
+                                <?php //echo date ('M', strtotime($post->user_name)). ',' . date('d', strtotime($post->user_name)). ' ' . date('Y',strtotime($post->user_name)) ; 
+                                echo date('M, d Y', strtotime($post->created_at));
+                                ?>
                                 </span>
                         </div>
                     </div>
@@ -39,12 +41,16 @@
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <p> <?php echo $post->body; ?> </p>
 
-                        <p>
+                        <!-- <p>
                             Placeholder text by
                             <a href="http://spaceipsum.com/">Space Ipsum</a>
                             &middot; Images by
                             <a href="https://www.flickr.com/photos/nasacommons/">NASA on The Commons</a>
-                        </p>
+                        </p> -->
+
+                        <a href="<?php echo base_url?>/posts/delete.php?del_id=<?php echo $post->id;?>" class="btn btn-danger text-center float-end">Delete</a>
+                        <a href="" class="btn btn-warning text-center">Update</a>
+
                     </div>
                 </div>
             </div>
