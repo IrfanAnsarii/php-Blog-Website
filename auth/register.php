@@ -1,6 +1,6 @@
 
 <?php include '../includes/header.php'; ?>
-<?php require '../config/config.php'; ?>
+<?php //require '../config/config.php'; ?>
 
 <?php 
 

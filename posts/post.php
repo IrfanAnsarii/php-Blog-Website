@@ -49,7 +49,7 @@
                         </p> -->
 
                         <a href="<?php echo base_url?>/posts/delete.php?del_id=<?php echo $post->id;?>" class="btn btn-danger text-center float-end">Delete</a>
-                        <a href="" class="btn btn-warning text-center">Update</a>
+                        <a href="<?php echo base_url?>/posts/update.php?upd_id=<?php echo $post->id;?>" class="btn btn-warning text-center">Update</a>
 
                     </div>
                 </div>
