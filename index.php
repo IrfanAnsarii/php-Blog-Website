@@ -15,6 +15,7 @@ $categories->execute();
 $category = $categories->fetchAll(PDO::FETCH_OBJ);
 
 ?>
+
 <div class="row gx-4 gx-lg-5 justify-content-center">
     <div class="col-md-10 col-lg-8 col-xl-7">
         <?php foreach ($posts as $row): ?>
@@ -40,6 +41,7 @@ $category = $categories->fetchAll(PDO::FETCH_OBJ);
 
     </div>
 </div>
+
 <div class="row gx-4 gx-lg-5 justify-content-center">
     <h3>Categories</h3>
     <br><br><br>
