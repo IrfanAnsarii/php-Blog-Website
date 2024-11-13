@@ -4,13 +4,19 @@
 ?>
 
 <?php
+
+$categories = $conn->query("SELECT * from categories");
+$categories->execute();
+$category = $categories->fetchAll(PDO::FETCH_OBJ);
+
 if ( isset( $_POST[ 'submit' ] ) ) {
-    if ( $_POST['title'] == '' or $_POST['subtitle'] == '' or $_POST['body'] == '' or $_FILES['img'] == '' ) {
+    if ( $_POST['title'] == '' or $_POST['subtitle'] == '' or $_POST['body'] == '' or $_POST['category_id']=='' ) {
         echo 'one input or more are empty';
     } else {
         $title = $_POST[ 'title' ];
         $subtitle = $_POST[ 'subtitle' ];
         $body = $_POST[ 'body' ];
+        $category_id = $_POST[ 'category_id' ];
         $img = $_FILES[ 'img' ][ 'name' ];
         $user_id = $_SESSION[ 'user_id' ];
         $user_name = $_SESSION[ 'username' ];
@@ -18,16 +24,21 @@ if ( isset( $_POST[ 'submit' ] ) ) {
 
         $dir = 'images/'.basename( $img );
 
-        $insert = $conn->prepare( "INSERT INTO posts (title,subtitle,body,img , user_id, user_name)
-        VALUES (:title, :subtitle, :body ,:img, :user_id , :user_name )" );
+        // $insert = $conn->prepare( "INSERT INTO posts (title,subtitle,body,category_id, img , user_id, user_name)
+        // VALUES (:title, :subtitle, :body, category_id ,:img, :user_id , :user_name )" );
+
+         $insert = $conn->prepare( "INSERT INTO posts (title, subtitle, body, category_id, img, user_id, user_name)
+            VALUES (:title, :subtitle, :body, :category_id, :img, :user_id, :user_name)" );
+
 
         $insert->execute( [
-            'title'=>$title,
-            'subtitle'=>$subtitle,
-            'body'=>$body,
-            'img'=>$img,
-            'user_id'=>$user_id,
-            'user_name'=>$user_name
+            ':title'=>$title,
+            ':subtitle'=>$subtitle,
+            ':body'=>$body,
+            ':category_id'=>$category_id,
+            ':img'=>$img,
+            ':user_id'=>$user_id,
+            ':user_name'=>$user_name
         ] );
 
         if ( move_uploaded_file( $_FILES[ 'img' ][ 'tmp_name' ], $dir ) ) {
@@ -53,6 +64,15 @@ if ( isset( $_POST[ 'submit' ] ) ) {
 <div class = 'form-outline mb-4'>
 <textarea type = 'text' name = 'body' id = 'form2Example1' class = 'form-control' placeholder = 'body' rows = '8'></textarea>
 </div>
+
+<div class = 'form-outline mb-4'>
+<select name="category_id" class="from-select" aria-label="Default select example" >
+    <option selected>Open this select menu</option>
+    <?php foreach ($category as $cat): ?>
+    <option value=" <?php echo $cat->id;?> ">  <?php echo $cat->name; ?>  </option>
+    <?php endforeach; ?>
+
+    </div>
 
 <div class = 'form-outline mb-4'>
 <input type = 'file' name = 'img' id = 'form2Example1' class = 'form-control' placeholder = 'image' />
